@@ -21,6 +21,9 @@ const server = http.createServer((req, res) => {
   // Get the method
   const method = req.method.toLowerCase();
 
+  // Get the headers
+  const headersObject = req.headers;
+
   // Send response
   res.end('Hi there!');
 
@@ -29,6 +32,7 @@ const server = http.createServer((req, res) => {
     `Request is received on this path ${trimmedPath} with method ${method}`,
   );
   console.log(queryStringObject);
+  console.log(headersObject);
 });
 
 // Starting the server on port 3000
