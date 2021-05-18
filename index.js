@@ -5,6 +5,7 @@
 // Dependencies
 const http = require('http');
 const url = require('url');
+const { StringDecoder } = require('string_decoder');
 
 // Creating the server
 const server = http.createServer((req, res) => {
@@ -24,15 +25,28 @@ const server = http.createServer((req, res) => {
   // Get the headers
   const headersObject = req.headers;
 
-  // Send response
-  res.end('Hi there!');
+  // Get the payload, if any
+  const decoder = new StringDecoder('utf-8');
+  let buffer = '';
 
-  // Log the request
-  console.log(
-    `Request is received on this path ${trimmedPath} with method ${method}`,
-  );
-  console.log(queryStringObject);
-  console.log(headersObject);
+  req.on('data', data => {
+    buffer += decoder.write(data);
+  });
+
+  req.on('end', () => {
+    buffer += decoder.end();
+
+    // Send response
+    res.end('Hi there!');
+
+    // Log the request
+    console.log(
+      `Request is received on this path ${trimmedPath} with method ${method}`,
+    );
+    console.log(queryStringObject);
+    console.log(headersObject);
+    console.log(buffer);
+  });
 });
 
 // Starting the server on port 3000
