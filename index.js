@@ -9,6 +9,10 @@ const url = require('url');
 const { StringDecoder } = require('string_decoder');
 const { readFileSync } = require('fs');
 const config = require('./config.js');
+const _data = require('./lib/data.js');
+
+// Testing the storing data functionality
+_data.create('test', 'newFile', { name: 'Momchil' }, err => console.log(err));
 
 // Creating the http server
 const httpServer = http.createServer((req, res) => {
