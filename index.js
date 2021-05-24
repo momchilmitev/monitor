@@ -11,9 +11,6 @@ const { readFileSync } = require('fs');
 const config = require('./config.js');
 const _data = require('./lib/data.js');
 
-// Testing the storing data functionality
-_data.update('test', 'newFile', { name: 'Pavlinka' }, err => console.log(err));
-
 // Creating the http server
 const httpServer = http.createServer((req, res) => {
   unifiedServer(req, res);
