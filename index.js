@@ -12,7 +12,7 @@ const config = require('./config.js');
 const _data = require('./lib/data.js');
 
 // Testing the storing data functionality
-_data.create('test', 'newFile', { name: 'Momchil' }, err => console.log(err));
+_data.read('test', 'newFile', (err, data) => console.log(err, data));
 
 // Creating the http server
 const httpServer = http.createServer((req, res) => {
