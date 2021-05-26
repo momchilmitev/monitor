@@ -43,14 +43,17 @@ httpsServer.listen(config.httpsPort, () => {
 // The main server logic
 function unifiedServer(req, res) {
   // Get the URL and parse it
-  const parsedURL = url.parse(req.url, true);
+  const parsedURL = new URL(req.url, 'http://127.0.0.1:3000');
 
   // Get the path
   const path = parsedURL.pathname;
   const trimmedPath = path.replace(/^\/+|\/+$/g, '');
 
   // Get the query string as an object
-  const queryStringObject = parsedURL.query;
+  const queryStringObject = {};
+  parsedURL.searchParams.forEach(
+    (value, name) => (queryStringObject[name] = value),
+  );
 
   // Get the method
   const method = req.method.toLowerCase();
