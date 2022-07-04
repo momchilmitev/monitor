@@ -4,11 +4,22 @@
  */
 
 // Dependencies
-import http from 'http';
+import { createServer } from 'http';
 
 // Creating the http server
-const httpServer = http.createServer((req, res) => {
+const httpServer = createServer((req, res) => {
+  // Get the URL and parse it
+  const parsedUrl = new URL(req.url, `http://${req.headers.host}`)
+
+  // Get the path
+  const path = parsedUrl.pathname.replace(/^\/+|\/+$/g, '')
+
+  // Send the response
   res.end('Hello Momo\n');
+
+  // Log the request path
+  console.log(path)
+
 });
 
 // Starting the server
