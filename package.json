@@ -1,0 +1,21 @@
+{
+  "name": "monitor",
+  "version": "1.0.0",
+  "description": "Simple monitoring app (REST API, GUI and CLI) with vanilla node js",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/momchilmitev/monitor.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/momchilmitev/monitor/issues"
+  },
+  "homepage": "https://github.com/momchilmitev/monitor#readme"
+}
