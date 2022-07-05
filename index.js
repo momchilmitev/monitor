@@ -14,11 +14,14 @@ const httpServer = createServer((req, res) => {
   // Get the path
   const path = parsedUrl.pathname.replace(/^\/+|\/+$/g, '')
 
+  // Get the http method
+  const method = req.method.toLowerCase()
+
   // Send the response
   res.end('Hello Momo\n');
 
   // Log the request path
-  console.log(path)
+  console.log(method)
 
 });
 
