@@ -6,6 +6,8 @@
 // Dependencies
 import { createServer } from 'http';
 import { StringDecoder } from 'string_decoder';
+import router from './router.js';
+import { notFound } from './routeHandlers.js';
 
 // Creating the http server
 const httpServer = createServer((req, res) => {
@@ -33,11 +35,30 @@ const httpServer = createServer((req, res) => {
   req.on('end', () => {
     payload += decoder.end()
 
-    // Send the response
-    res.end('Hello Momo\n');
+    // Constructing the data object
+    const data = {
+      headers,
+      method,
+      path,
+      payload,
+      serachParams,
+    }
 
-    // Log the request path
-    console.log(payload);
+    // Getting the coresponding route handler
+    const handler = typeof(router[path]) !== 'undefined' ? router[path] : notFound
+
+    // Routing the request
+    handler(data, (statusCode = 200, payload = {}) => {
+      // Covert the payload to a string
+      const payloadString = JSON.stringify(payload);
+
+      // Return the response
+      res.writeHead(statusCode);
+      res.end(payloadString)
+
+      // Log the status code and the payload string
+      console.log(statusCode, payloadString);
+    });
   })
 });
 
