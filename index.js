@@ -17,6 +17,9 @@ const httpServer = createServer((req, res) => {
   // Getting the search params as an object
   const serachParams = parsedUrl.searchParams
 
+  // Getting the request headers as an object
+  const headers = req.headers
+
   // Get the http method
   const method = req.method.toLowerCase()
 
@@ -24,7 +27,7 @@ const httpServer = createServer((req, res) => {
   res.end('Hello Momo\n');
 
   // Log the request path
-  console.log(serachParams)
+  console.log(headers)
 
 });
 
