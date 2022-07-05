@@ -14,6 +14,9 @@ const httpServer = createServer((req, res) => {
   // Get the path
   const path = parsedUrl.pathname.replace(/^\/+|\/+$/g, '')
 
+  // Getting the search params as an object
+  const serachParams = parsedUrl.searchParams
+
   // Get the http method
   const method = req.method.toLowerCase()
 
@@ -21,7 +24,7 @@ const httpServer = createServer((req, res) => {
   res.end('Hello Momo\n');
 
   // Log the request path
-  console.log(method)
+  console.log(serachParams)
 
 });
 
