@@ -5,30 +5,40 @@
 
 // Dependencies
 import { createServer } from 'http';
+import { StringDecoder } from 'string_decoder';
 
 // Creating the http server
 const httpServer = createServer((req, res) => {
   // Get the URL and parse it
-  const parsedUrl = new URL(req.url, `http://${req.headers.host}`)
+  const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
 
   // Get the path
-  const path = parsedUrl.pathname.replace(/^\/+|\/+$/g, '')
+  const path = parsedUrl.pathname.replace(/^\/+|\/+$/g, '');
 
   // Getting the search params as an object
-  const serachParams = parsedUrl.searchParams
+  const serachParams = parsedUrl.searchParams;
 
   // Getting the request headers as an object
-  const headers = req.headers
+  const headers = req.headers;
 
   // Get the http method
-  const method = req.method.toLowerCase()
+  const method = req.method.toLowerCase();
 
-  // Send the response
-  res.end('Hello Momo\n');
+  // Get the payload if any
+  const decoder = new StringDecoder('utf-8');
+  let payload = '';
+  
+  req.on('data', chunk => payload += decoder.write(chunk))
 
-  // Log the request path
-  console.log(headers)
+  req.on('end', () => {
+    payload += decoder.end()
 
+    // Send the response
+    res.end('Hello Momo\n');
+
+    // Log the request path
+    console.log(payload);
+  })
 });
 
 // Starting the server
