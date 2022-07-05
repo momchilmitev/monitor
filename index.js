@@ -6,6 +6,8 @@
 // Dependencies
 import { createServer } from 'http';
 import { StringDecoder } from 'string_decoder';
+import config from './config.js';
+console.log(config.envName);
 import router from './router.js';
 import { notFound } from './routeHandlers.js';
 
@@ -64,6 +66,6 @@ const httpServer = createServer((req, res) => {
 });
 
 // Starting the server
-httpServer.listen(3000, () => {
-  console.log('Server is running on port 3000');
+httpServer.listen(config.port, () => {
+  console.log(`Server is running on port ${config.port}`);
 });
